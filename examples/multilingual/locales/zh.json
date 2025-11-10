@@ -1,0 +1,11 @@
+{
+  "greeting": "您好",
+  "signature": "此致敬礼",
+  "product.copyright": "© 2025 Global Services. 版权所有。",
+  "email.password_reset.title": "密码重置请求",
+  "email.password_reset.intro": "我们收到了重置您密码的请求。如果这不是您发起的请求，您可以安全地忽略此邮件。",
+  "email.password_reset.instructions": "要重置您的密码，请点击下面的按钮：",
+  "email.password_reset.button": "重置密码",
+  "email.password_reset.outro": "此密码重置链接将在24小时后过期。",
+  "email.password_reset.warning": "如果您无法点击按钮，请将URL复制并粘贴到您的网络浏览器中。"
+}

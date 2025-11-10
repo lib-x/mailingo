@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: {{.Theme.BackgroundColor}};
+            color: {{.Theme.TextColor}};
+        }
+        .email-wrapper {
+            width: 100%;
+            background-color: {{.Theme.BackgroundColor}};
+            padding: 20px 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #FFFFFF;
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+        }
+        .email-header {
+            padding: 25px;
+            text-align: center;
+            background-color: {{.Theme.PrimaryColor}};
+        }
+        .email-header img {
+            max-height: 50px;
+        }
+        .email-body {
+            padding: 35px;
+        }
+        .email-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: {{.Theme.PrimaryColor}};
+            margin-bottom: 20px;
+        }
+        .email-greeting {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .email-content {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .email-dictionary {
+            background-color: #F4F4F4;
+            padding: 15px;
+            border-radius: 3px;
+            margin: 20px 0;
+        }
+        .email-dictionary-item {
+            margin: 10px 0;
+        }
+        .email-dictionary-key {
+            font-weight: bold;
+            color: {{.Theme.PrimaryColor}};
+        }
+        .email-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .email-table th {
+            background-color: {{.Theme.PrimaryColor}};
+            color: #FFFFFF;
+            padding: 12px;
+            text-align: left;
+        }
+        .email-table td {
+            padding: 12px;
+            border-bottom: 1px solid #E8E8E8;
+        }
+        .email-action {
+            margin: 30px 0;
+            text-align: center;
+        }
+        .email-action-instructions {
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        .email-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: {{.Theme.ButtonColor}};
+            color: {{.Theme.ButtonTextColor}} !important;
+            text-decoration: none;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+        .email-button-inverted {
+            background-color: transparent;
+            border: 2px solid {{.Theme.ButtonColor}};
+            color: {{.Theme.ButtonColor}} !important;
+        }
+        .email-attachments {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #F9F9F9;
+            border-radius: 3px;
+            border-left: 4px solid {{.Theme.PrimaryColor}};
+        }
+        .email-attachments-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: {{.Theme.PrimaryColor}};
+            font-size: 14px;
+        }
+        .email-attachment-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 8px 0;
+            background-color: #FFFFFF;
+            border-radius: 3px;
+            border: 1px solid #E8E8E8;
+            text-decoration: none;
+            color: {{.Theme.TextColor}};
+            transition: all 0.2s;
+        }
+        .email-attachment-item:hover {
+            border-color: {{.Theme.PrimaryColor}};
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .email-attachment-icon {
+            width: 40px;
+            height: 40px;
+            background-color: {{.Theme.PrimaryColor}};
+            color: #FFFFFF;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .email-attachment-info {
+            flex-grow: 1;
+        }
+        .email-attachment-name {
+            font-weight: 600;
+            color: {{.Theme.PrimaryColor}};
+            margin-bottom: 3px;
+        }
+        .email-attachment-meta {
+            font-size: 12px;
+            color: #6B6E76;
+        }
+        .email-footer {
+            padding: 25px;
+            text-align: center;
+            background-color: #F4F4F4;
+            font-size: 13px;
+            color: #6B6E76;
+        }
+        .email-footer a {
+            color: {{.Theme.PrimaryColor}};
+            text-decoration: none;
+        }
+        {{.CustomCSS}}
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="email-container">
+            {{if .Product.Logo}}
+            <div class="email-header">
+                <img src="{{.Product.Logo}}" alt="{{.Product.Name}}">
+            </div>
+            {{end}}
+
+            <div class="email-body">
+                <div class="email-greeting">
+                    {{.Body.Greeting}} {{.Body.Name}},
+                </div>
+
+                {{if .Body.Title}}
+                <div class="email-title">{{.Body.Title}}</div>
+                {{end}}
+
+                {{range .Body.Intros}}
+                <div class="email-content">{{.}}</div>
+                {{end}}
+
+                {{if .Body.Dictionary}}
+                <div class="email-dictionary">
+                    {{range .Body.Dictionary}}
+                    <div class="email-dictionary-item">
+                        <span class="email-dictionary-key">{{.Key}}:</span> {{.Value}}
+                    </div>
+                    {{end}}
+                </div>
+                {{end}}
+
+                {{if .Body.Table.Data}}
+                <table class="email-table">
+                    {{range $rowIndex, $row := .Body.Table.Data}}
+                    {{if eq $rowIndex 0}}
+                    <thead>
+                        <tr>
+                            {{range $row}}
+                            <th>{{.Key}}</th>
+                            {{end}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {{else}}
+                    <tr>
+                        {{range $row}}
+                        <td>{{.Value}}</td>
+                        {{end}}
+                    </tr>
+                    {{end}}
+                    {{end}}
+                    </tbody>
+                </table>
+                {{end}}
+
+                {{range .Body.Actions}}
+                <div class="email-action">
+                    {{if .Instructions}}
+                    <div class="email-action-instructions">{{.Instructions}}</div>
+                    {{end}}
+                    <a href="{{.Button.Link}}" class="email-button{{if .InvertedButton}} email-button-inverted{{end}}"
+                       {{if .Button.Color}}style="background-color: {{.Button.Color}};"{{end}}>
+                        {{.Button.Text}}
+                    </a>
+                </div>
+                {{end}}
+
+                {{range .Body.Outros}}
+                <div class="email-content">{{.}}</div>
+                {{end}}
+
+                {{if .Body.Attachments}}
+                <div class="email-attachments">
+                    <div class="email-attachments-title">📎 Attachments</div>
+                    {{range .Body.Attachments}}
+                    <a href="{{.URL}}" class="email-attachment-item" target="_blank">
+                        <div class="email-attachment-icon">📄</div>
+                        <div class="email-attachment-info">
+                            <div class="email-attachment-name">{{.Name}}</div>
+                            <div class="email-attachment-meta">{{.Type}}{{if .Size}} • {{.Size}}{{end}}</div>
+                        </div>
+                    </a>
+                    {{end}}
+                </div>
+                {{end}}
+
+                <div class="email-content">
+                    {{.Body.Signature}},<br>
+                    {{.Product.Name}}
+                </div>
+            </div>
+
+            <div class="email-footer">
+                {{.Product.Copyright}}<br>
+                <a href="{{.Product.Link}}">{{.Product.Name}}</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

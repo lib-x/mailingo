@@ -1,0 +1,11 @@
+{
+  "greeting": "Hello",
+  "signature": "Best regards",
+  "product.copyright": "© 2025 Global Services. All rights reserved.",
+  "email.password_reset.title": "Password Reset Request",
+  "email.password_reset.intro": "We received a request to reset your password. If you didn't make this request, you can safely ignore this email.",
+  "email.password_reset.instructions": "To reset your password, click the button below:",
+  "email.password_reset.button": "Reset Password",
+  "email.password_reset.outro": "This password reset link will expire in 24 hours.",
+  "email.password_reset.warning": "If you're having trouble clicking the button, copy and paste the URL into your web browser."
+}
